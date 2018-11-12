@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template
+from settings import DOMAIN_NAME, DOMAIN_PORT
 from ethereum_core import Ethereum
 
 application = Flask(__name__)
@@ -31,5 +32,8 @@ def index():
     )
 
 if __name__ == '__main__':
-    application.debug = True
-    application.run()
+    application.run(
+        debug = True,
+        host = DOMAIN_NAME,
+        port = DOMAIN_PORT
+    )
