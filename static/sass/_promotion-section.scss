@@ -1,0 +1,229 @@
+.promotion-section {
+    background: url('../img/bg-promotion.jpg') no-repeat center top / cover;
+}
+
+.promotion {
+    display: flex;
+    padding-top: 30px;
+    color: $color-text-white;
+
+    h2 {
+        font-weight: 600;
+        font-size: 2.2rem;
+        color: $color-text-9;
+        text-shadow: 0px 1px 7px rgba(0, 0, 0, 0.24);
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1.4rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+}
+
+.promotion-information {
+    width: 38%;
+    margin-right: 25px;
+}
+
+.promotion-image {
+
+    img {
+        display: block;
+        margin-top: -170px;
+    }
+}
+
+.promotion-right {
+    text-align: center;
+}
+
+.ClassyCountdown-wrapper {
+    display: flex;
+
+    &> div {
+        width: 114px;
+        margin: 0;
+        margin-right: 18px;
+
+        &::before {
+            content: '';
+            display: block;
+            width: 126px;
+            height: 128px;
+            background: url('../img/coundown-shadow.png') no-repeat;
+            position: absolute;
+            left: -6px;
+            top: 0;
+            z-index: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        canvas {
+            position: relative;
+        }
+    }
+}
+
+.ClassyCountdown-days {
+    display: none !important;
+}
+
+.ClassyCountdown-value {
+
+    &> div {
+        font-family: $primary-font !important;
+        font-size: 3rem;
+        color: $color-text-white;
+        margin-bottom: 10px;
+    }
+
+    &> span {
+        font-family: $primary-font !important;
+        font-size: 1.4rem !important;
+        color: $color-text-white;
+    }
+}
+
+.fixed-promotion {
+    display: flex;
+    align-items: center;
+    width: 338px;
+    height: 100px;
+    padding-left: 85px;
+    background: url('../img/fixed-promotion-bg.png') no-repeat;
+    cursor: pointer;
+    position: fixed;
+    right: 17%;
+    top: 100px;
+    z-index: 1;
+
+    h2 {
+        font-weight: 600;
+        font-size: 1.6rem;
+        color: $color-text-9;
+        margin-right: 12px;
+    }
+
+    .ClassyCountdown-wrapper {
+
+        &> div {
+            width: 42px;
+            margin-right: 5px;
+
+            &::before {
+                display: none;
+            }
+
+            canvas {
+                display: none;
+            }
+        }
+    }
+
+    .ClassyCountdown-value {
+
+        &> div {
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 0;
+        }
+
+        &> span {
+            font-size: 1.3rem !important;
+        }
+    }
+}
+
+.fixed-promotion-close {
+    width: 13px;
+    height: 13px;
+    background: url('../img/fixed-promotion-close-icon.svg') no-repeat;
+    cursor: pointer;
+    position: absolute;
+    left: calc(50% - 6px);
+    top: -10px;
+}
+
+
+@media (max-width: 1399px) {
+
+    .fixed-promotion {
+        right: 20px;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .promotion-section {
+        padding-bottom: 60px;
+        background-image: linear-gradient( 0deg, rgb(11,153,215) 0%, rgb(55,72,158) 100%);
+    }
+
+    .promotion {
+        flex-direction: column;
+    }
+
+    .promotion-information {
+        width: 100%;
+        text-align: center;
+        margin-right: 0;
+    }
+
+    .promotion-image {
+        order: -1;
+        margin-left: auto;
+        margin-right: auto;
+
+        img {
+            max-width: 250px;
+            margin-top: -130px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .ClassyCountdown-wrapper {
+        justify-content: center;
+    }
+
+    .fixed-promotion {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .promotion-section {
+        padding-bottom: 50px;
+    }
+
+    .promotion-image {
+
+        img {
+            max-width: 200px;
+        }
+    }
+
+    .ClassyCountdown-wrapper {
+
+        &> div {
+
+            &::before {
+                display: none;
+            }
+        }
+    }
+
+    .ClassyCountdown-wrapper {
+
+        &> div {
+            width: 90px;
+            margin-right: 5px;
+        }
+    }
+}

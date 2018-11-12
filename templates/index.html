@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SmartMMM</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-panel">
+                <a href="http://smartMMM.com" class="logo" title="SmartMMM">
+                    <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="logo">
+                    <div>Smart<span>MMM</span></div>
+                </a>
+                <ul class="header-menu">
+                    <li><a href="#about">О SmartMMM</a></li>
+                    <li><a href="#state">Состояние</a></li>
+                    <li><a href="#how">Вклад</a></li>
+                    <li><a href="#distribution">Распределение</a></li>
+                    <li><a href="#faq">F.A.Q.</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+                <div class="header-right-menu">
+                    <div class="telegram-chats">
+                        <a href="http://t.me/smart_mmm">Ru</a>
+                        <a href="http://t.me/smart_mmm">En</a>
+                    </div>
+                    <div class="languages">
+                        <div class="languages-button">Rus</div>
+                        <ul class="languages-list">
+                            <li><a href="#">Eng</a></li>
+                            <li><a href="#">Rus</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="hamburger"></button>
+            </div>
+        </div>
+        <div class="showcase">
+            <div class="showcase-image">
+                <img src="{{ url_for('static', filename='img/showcase-image.png') }}" alt="">
+            </div>
+            <div class="showcase-content">
+                <h1>Smart contract</h1>
+                <h2>До <strong>2.50%</strong> в сутки</h2>
+                <p>Ставка меняется автоматически<br> в зависимости от темпов роста и баланса.</p>
+                <p>Проект по распределению криптовалюты ETH<br>с открытым кодом</p>
+                <div class="showcase-percentages">От <strong>30%</strong> до <strong>120%</strong> в месяц</div>
+                <a href="https://etherscan.io/address/0xe58446caa7f3e10743fe28a91e9331a1c78f432e" target="_blank" class="showcase-button">Проверить состояние фонда</a>
+                <a href="https://etherscan.io/address/0xe58446caa7f3e10743fe28a91e9331a1c78f432e#code" target="_blank" class="showcase-link">Проверить код контракта</a>
+                <div class="showcase-features">
+                    <div class="showcase-feature">
+                        <img src="{{ url_for('static', filename='img/showcase-feature-icon-1.svg') }}" alt="">
+                        Невозможность <br>  обрушения
+                    </div>
+                    <div class="showcase-feature">
+                        <img src="{{ url_for('static', filename='img/showcase-feature-icon-2.svg') }}" alt="">
+                        Подтвержденная<br> аудитом надежность
+                    </div>
+                    <div class="showcase-feature">
+                        <img src="{{ url_for('static', filename='img/showcase-feature-icon-3.svg') }}" alt="">
+                        Минимальный<br> вклад 0.01 eth
+                    </div>
+                    <div class="showcase-feature">
+                        <img src="{{ url_for('static', filename='img/showcase-feature-icon-4.svg') }}" alt="">
+                        Валюта вклада<br> и выплаты - ETH
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <section class="about-section" id="about">
+            <div class="container">
+                <div class="about">
+                    <div class="about-image">
+                        <img src="{{ url_for('static', filename='img/about-image.png') }}" alt="">
+                    </div>
+                    <div class="about-content">
+                        <h2 class="title decor-left">О фонде SmartMMM</h2>
+                        <h3>Первая финансовая пирамида, которая не может обрушиться</h3>
+                        <p>Проект построен на смарт-контракте Etherium, что гарантирует вечную автономную работу контракта без возможности влиять даже со стороны разработчиков. Изучите технологию смарт-контрактов, чтобы понимать, почему это так.</p>
+                        <p>Проанализировав все проекты по распределению криптовалют мы разработали уникальный, не имеющий аналогов алгоритм, решивший общие проблемы для подобных проектов:</p>
+                        <h3>Равные шансы заработать не зависимо от даты вклада</h3>
+                        <p>В smartMMM.com не обязательно быть в числе первых чтобы заработать! Теперь важен лишь рост числа участников, а не «успеть» вступить первым.</p>
+                        <p>В случае стагнации и затухания роста классической пирамиды следует неминуемая гибель проекта и потеря всех вкладов для большинства ее участников. Но не для SmartMMM! В нашем алгоритме реализован «мягкий рестарт». Пропорционально времени участия в проекте сокращаются расчетные вклады уже заработавших и не затрагиваются (и даже увеличиваются до 7%) вклады новичков, в результате вдвое снижается нагрузка по выплатам, а значит возобновляется рост.</p>
+                        <h3>Плавающая процентная ставка, как гарант стабильности системы</h3>
+                        <p>В зависимости от баланса кошелька контракта и темпов роста пирамиды процентная ставка автоматически меняется от 1% до 2,5% в сутки, что делает проект еще более надежным и долговечным. Ведь всем нам важнее стабильность на длительный срок, чем повышенный процент пару недель и печальный финал.</p>
+                        <h3>Хорошо зарабатывающие партнеры - залог успеха проекта</h3>
+                        <p>Мы разработали 2-х уровневую реферальную программу с обязательной верификацией. Такой подход в разы повысит доходы партнеров, а значит и их вовлеченность. Мы считаем важным, чтобы реферальные выплаты доставались действительно блогерам и вебмастерам занимающиеся раскруткой проекта, а не «умным» участник на второй кошелек.</p>
+                        <p>Подробно об алгоритме работы смарт-контракта в разделе «вопросы и ответы»</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="state-section" id="state">
+            <div class="container">
+                <h2 class="title decor-top">Текущее состояние фонда</h2>
+                <h3 class="subtitle">Действующая сейчас ставка по вкладам<br> 1,0 % в сутки</h3>
+                <h3 class="subtitle"><b>ПРЕДСТАРТ </b></h3>
+                <h3 class="subtitle"><b>Реальная статистика будет доступна после старта</b></h3>
+                 <h3 class="subtitle">На данный момент статистика контракта доступна на сайте Etherscan.io</h3>
+                <div class="state-features">
+                    <div class="state-feature">
+                        <img src="{{ url_for('static', filename='img/state-feature-icon-1.svg') }}" alt="">
+                        <strong>Баланс ETH:</strong>
+                        <span>{{contractBalance}}</span>
+                    </div>
+                    <div class="state-feature">
+                        <img src="{{ url_for('static', filename='img/state-feature-icon-2.svg') }}" alt="">
+                        <strong>Баланс USDT:</strong>
+                        <span>{{contractUsdtBalance}}</span>
+                    </div>
+                    <div class="state-feature">
+                        <img src="{{ url_for('static', filename='img/state-feature-icon-3.svg') }}" alt="">
+                        <strong>Дней с запуска:</strong>
+                        <span>{{contractDaysAfterStart}}</span>
+                    </div>
+                    <div class="state-feature">
+                        <img src="{{ url_for('static', filename='img/state-feature-icon-4.svg') }}" alt="">
+                        <strong>Ввод в контракт</strong>
+                        <span>{{contractInvestedAmount}} ETH</span>
+                    </div>
+                    <div class="state-feature">
+                        <img src="{{ url_for('static', filename='img/state-feature-icon-5.svg') }}" alt="">
+                        <strong>Вывод с контракта</strong>
+                        <span>{{contractPaymentsAmount}} ETH</span>
+                    </div>
+                    <div class="state-feature">
+                        <img src="{{ url_for('static', filename='img/state-feature-icon-6.svg') }}" alt="">
+                        <strong>Вкладчиков:</strong>
+                        <span>{{contractInvestorsCount}}</span>
+                    </div>
+                </div>
+                <div class="tabs state-tabs">
+                    <ul class="tabs-navigation state-tabs-navigation">
+                        <li><a href="#tab-1" class="active">Динамика развития (демо)</a></li>
+                        <li><a href="#tab-2">Проверить кошелёк (демо)</a></li>
+                        <li><a href="#tab-3">Топ вкладчиков<br> и партнеров (демо)</a></li>
+                    </ul>
+                    <div class="tabs-content state-tabs-content">
+                        <div class="tab active" id="tab-1">
+                            <div class="state-tabs-inner">
+                                <div class="state-graph" id="graph"></div>
+                            </div>
+                        </div>
+                        <div class="tab" id="tab-2">
+                            <div class="state-tabs-inner wallet-inner">
+                                <div class="wallet">
+                                   <div class="wallet-form">
+                                        <h2>Введите номер кошелька для получения всей доступной информации</h2>
+                                        <form action='index'>
+                                            <input type="text" placeholder="Адрес кошелька" name="wallet">
+                                            <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                                            <input type="submit" value="Отправить запрос">
+                                        </form>
+                                    </div>
+                                    <div class="wallet-information">
+                                        <h2>Информация по кошельку</h2>
+                                        <div class="wallet-cards">
+                                            <div class="wallet-card information">
+                                                <h3>Информация о владельце(демо)</h3>
+                                                <ul>
+                                                    <li>
+                                                        <span class="name">Всего вложено в проект:</span>
+                                                        <span class="value">{{walletInvestedAmount}} ETH</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="name">Расчетный вклад:</span>
+                                                        <span class="value">{{walletDepositSum}} ETH</span>
+                                                    </li>
+                                                    <!-- <li>
+                                                        <span class="name">Начислено процентов за вклад:</span>
+                                                        <span class="value">12.050 ETH</span>
+                                                    </li> -->
+                                                </ul>
+                                                <ul>
+                                                    <li>
+                                                        <span class="name">Кэшбэк за вклады по реф. ссылке:</span>
+                                                        <span class="value">{{walletCashback}} ETH</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="wallet-card referral">
+                                                <h3>Реферальная программа(демо)</h3>
+                                                <ul>
+                                                    <li>
+                                                        <span class="name">Статус партнера:</span>
+                                                        <span class="value">{{walletReferrerStatus}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="name">Привлечено участников (1 уровень):</span>
+                                                        <span class="value">{{walletReferralsLevelOneCount}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="name">Привлечено участников (2 уровень):</span>
+                                                        <span class="value">{{walletReferralsLevelTwoCount}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="name">Партнёрские начисления:</span>
+                                                        <span class="value">{{walletReferralPayments}} ETH</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="wallet-card income">
+                                                <h3>Информация о доходах(демо)</h3>
+                                                <ul>
+                                                    <!-- <li>
+                                                        <span class="name">Всего начислено  :</span>
+                                                        <span class="value">23.555 ЕТН</span>
+                                                    </li> -->
+                                                    <li>
+                                                        <span class="name">Получено выплат:</span>
+                                                        <span class="value">{{walletPaymentsAmount}} ETH</span>
+                                                    </li>
+                                                    <!-- <li>
+                                                        <span class="name">Доступно для снятия:</span>
+                                                        <span class="value">1.023 ЕТН</span>
+                                                    </li> -->
+                                                    <!-- <li>
+                                                        <span class="name">Суточная доходность:</span>
+                                                        <span class="value">0.82 ETH</span>
+                                                    </li> -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab" id="tab-3">
+                            <div class="state-tabs-inner table-inner">
+                                <div class="state-table">
+                                    <table width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th width="25%"><div class="table-title">Номер кошелька</div></th>
+                                                <th width="25%"><div class="table-title">Сумма ETH</div></th>
+                                                <th width="25%"><div class="table-title">Привлёк участников</div></th>
+                                                <th width="25%"><div class="table-title">Привлёк участников<br> на сумму ETH</div></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x493c4afb73b4E68f7B2097Ad02c6aD7B2dDE4C712">0x493c4afb73b4E68f7B2097Ad02c6aD7B2dDE4C712</div></td>
+                                                <td>12.005</td>
+                                                <td>64</td>
+                                                <td>28.128</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x493c4a064t8E68f7B2097Ad02c6aD7B2dDE4C712">0x493c4a064t8E68f7B2097Ad02c6aD7B2dDE4C712</div></td>
+                                                <td>11.800</td>
+                                                <td>56</td>
+                                                <td>26.082</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x493c4afb3484E68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb3484E68f7B2097Ad02c6aD7B2dDE4C71</div></td>
+                                                <td>9.611</td>
+                                                <td>48</td>
+                                                <td>24.230</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x493c4adf6874E68f7B2097Ad02c6aD7B2dDE4C71">0x493c4adf6874E68f7B2097Ad02c6aD7B2dDE4C71</div></td>
+                                                <td>8.455</td>
+                                                <td>36</td>
+                                                <td>21.014</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
+                                                <td>7.030</td>
+                                                <td>24</td>
+                                                <td>18.645</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
+                                                <td>6.900</td>
+                                                <td>16</td>
+                                                <td>17.955</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
+                                                <td>5.864</td>
+                                                <td>12</td>
+                                                <td>13.706</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
+                                                <td>5.864</td>
+                                                <td>11</td>
+                                                <td>13.706</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
+                                                <td>5.864</td>
+                                                <td>10</td>
+                                                <td>13.706</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="wallet-number" title="0x311f71389e3DE68f7B2097Ad02c6aD7B2dDE4C71">0x311f71389e3DE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
+                                                <td>5.864</td>
+                                                <td>9</td>
+                                                <td>13.706</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </section> <!--
+        <section class="promotion-section" id="promotion">
+            <div class="container">
+                <div class="promotion">
+                    <div class="promotion-information">
+                        <h2>Акция - ПРЕДСТАРТ</h2>
+                        <p>В период действия акции любой кошелёк eth считается верифицированным партнером. А значит при указании этого кошелька в поле DATA при преводе на него сразу придёт 4.0% от вклада.</p>
+                        <p>Ещё 2,0% от суммы перевода вернётся на кошелёк вкладчика.<br> Лучшее время действовать - СЕЙЧАС!</p>
+                    </div>
+                    <div class="promotion-image">
+                        <img src="img/promotion-image.png" alt="">
+                    </div>
+                    <div class="promotion-right">
+                        <h2>Только 24 часа</h2>
+                        <p>До конца акции осталось:</p>
+                        <div class="countdown"></div>
+                    </div>
+                </div>
+            </div>
+        </section>  -->
+        <section class="how-section" id="how">
+            <div class="container">
+                <h2 class="title decor-top">Как зарабатывать на SmartMMM?</h2>
+                <h3 class="subtitle">4 простых шага для получения дохода</h3>
+                <div class="tabs how-tabs">
+                    <div class="tabs-navigation how-cards">
+                        <a href="#how-1" class="how-card active">
+                            <img src="{{ url_for('static', filename='img/how-card-icon-1.svg') }}" alt="">
+                            <h3>Зарегистрируйте и пополните ETH кошелек</h3>
+                        </a>
+                        <a href="#how-2" class="how-card">
+                            <img src="{{ url_for('static', filename='img/how-card-icon-2.svg') }}" alt="">
+                            <h3>Вложите ETH под 1.0-2.5% в день</h3>
+                        </a>
+                        <a href="#how-3" class="how-card">
+                            <img src="{{ url_for('static', filename='img/how-card-icon-3.svg') }}" alt="">
+                            <h3>Проверьте совершенную транзакцию</h3>
+                        </a>
+                        <a href="#how-4" class="how-card">
+                            <img src="{{ url_for('static', filename='img/how-card-icon-4.svg') }}" alt="">
+                            <h3>Получайте выплаты в любое удобное время</h3>
+                        </a>
+                    </div>
+                    <div class="tabs-content">
+                        <div class="tab active" id="how-1">
+                            <div class="how-content">
+                                <ul>
+                                    <li>
+                                        <p><strong>1.</strong> Мы рекомендуем для мобильных устройств кошелек <a href="https://ru.trustwalletapp.com/" target="_blank">Trust Wallet</a></p>
+                                    </li>
+                                    <li>
+                                        <p> Так же вы можете использовать другие кошельки, такие как <a href="https://www.myetherwallet.com" target="_blank">MyEtherWallet</a></p>
+                                    </li>
+                                    <li>
+                                        <p> Криптовалюту ETH Вы можете приобрести на сайте <a href="https://www.bestchange.ru/" target="_blank">https://www.bestchange.ru/</a></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab" id="how-2">
+                            <div class="how-content">
+                                <ul>
+                                    <li>
+                                        <p><strong>2.</strong> Отправить с ETH кошелька на адрес смарт-контракта <strong>0xE58446cAA7f3e10743fE28a91e9331a1C78F432E</strong><br> любую сумму от 0.01 ETH. Для оплаты транзакции на кошельке дополнительно должно быть мин. 0.002 ETH.<br> Рекомендуемый gas limits: 200000, актуальный gas price можно взять с <a href="http://ethgasstation.info" target="_blank">ethgasstation.info</a></p>
+                                        <p class="gray">*Не допускается перечисления с бирж, только с вашего личного<br> ETH кошелька, от которого у Вас есть приватные ключи.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab" id="how-3">
+                            <div class="how-content">
+                                <ul>
+                                    <li>
+                                        <p><strong>3.</strong> Проверить успешность выполнения транзакции в истории вашего приложения либо на<br> <a href="http://etherscan.io" target="_blank">etherscan.io</a> указав адрес своего кошелька.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab" id="how-4">
+                            <div class="how-content">
+                                <ul>
+                                    <li>
+                                        <p><strong>4.</strong> Начисление вашего процента происходит через 24 часа, с момента последнего вашего успешного<br> пополнения счета, либо успешного списания вами накопленного процента. Вы можете получить выплату в любое<br> время отправив 0 ETH на адрес смарт-контракта.</p>
+                                        <p>Рекомендуемый gas limits: 300000, актуальный gas price можно взять с <a href="http://ethgasstation.info" target="_blank">ethgasstation.info</a></p>
+                                        <p>Проверить выплаты можно на сайте <a href="https://etherscan.io/address/0xe58446caa7f3e10743fe28a91e9331a1c78f432e" target="_blank">etherscan.io</a> во вкладке “Internal Txns” вашего кошелька.</p>
+                                        <p class="gray">Для реинвестирования Вам нужно сначала снять накопленный процент вклада<br> (отправив 0 ЕТН на адрес смарт-контракта), и только потом сделать реинвест.</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="distribution-section" id="distribution">
+            <div class="container">
+                <h2 class="title decor-top">Текущее распределение вложений</h2>
+                <h3 class="subtitle">Ставка по вкладам<br> <b>1,00 %</b> в сутки</h3>
+                <div class="pyramid">
+                    <div class="pyramid-triangle pyramid-triangle-1"></div>
+                    <div class="pyramid-triangle pyramid-triangle-2"></div>
+                    <div class="pyramid-triangle pyramid-triangle-3"></div>
+                    <div class="pyramid-triangle pyramid-triangle-4"></div>
+                    <div class="pyramid-triangle pyramid-triangle-5"></div>
+                    <div class="pyramid-triangle pyramid-triangle-6"></div>
+                    <div class="pyramid-triangle pyramid-triangle-7"></div>
+                    <div class="pyramid-triangle pyramid-triangle-8"></div>
+                    <div class="pyramid-image">
+                        <img src="{{ url_for('static', filename='img/distribution-image.png') }}" alt="">
+                        <div class="pyramid-description pyramid-description-1">
+                            <div class="pyramid-percent">3%</div>
+                            <div class="pyramid-text">Тех. поддержка<br> и зарплатный фонд</div>
+                        </div>
+                        <div class="pyramid-description pyramid-description-2">
+                            <div class="pyramid-percent">7%</div>
+                            <div class="pyramid-text">Рекламный<br> бюджет</div>
+                        </div>
+                        <div class="pyramid-description pyramid-description-3">
+                            <div class="pyramid-percent">8%</div>
+                            <div class="pyramid-text">Партнерская<br> программа 5%+2%+1%</div>
+                        </div>
+                        <div class="pyramid-description pyramid-description-4">
+                            <div class="pyramid-percent">83%</div>
+                            <div class="pyramid-text">Выплаты<br> вкладчикам</div>
+                        </div>
+                        <div class="pyramid-description pyramid-description-5">
+                            <div class="pyramid-percent">91%</div>
+                            <div class="pyramid-text">На выплаты<br> участникам<br> проекта</div>
+                        </div>
+                        <div class="pyramid-side pyramid-side-1"></div>
+                        <div class="pyramid-side pyramid-side-2"></div>
+                        <div class="pyramid-side pyramid-side-3"></div>
+                        <div class="pyramid-side pyramid-side-4"></div>
+                    </div>
+                </div>
+                <div class="distribution-text">
+                    <p>Указанные условия распределения средств описаны в алгоритме смарт-контракта и уже не могут быть нарушены.</p>
+                    <p>
+                        <b>91-97% всех поступлений расходуются на выплаты участникам проекта, в т.ч.:</b><br>
+                        0,6-5% - участнику-партнеру, пригласившему нового вкладчика;<br>
+                        0-1% - рефереру 2-го уровня;<br>
+                        0,3-2% - вкладчику, за использование реферальной ссылки;<br>
+                        83-94% - на выплату процентов по вкладам.
+                    </p>
+                    <p>
+                        <b>3-10% расходуется на поддержание и развитие проекта, в т.ч.:</b><br>
+                        1-3% - техническая поддержка и зарплатный фонд;<br>
+                        2-7% - рекламный бюджет и расходы на развитие проекта.
+                    </p>
+                    <b>Ставка по вкладу 1,00-2,50% в день до достижения 25000 Eth на балансе, далее медленно снижаетя.</b><br>
+                    <p><i>Ставки  меняются алгоритмом контракта автоматически по мере роста баланса смарт-контракта и запаса прочности пирамиды в пределах приведеных значений. Действующие в данный момент ставки указаны на рисунке выше.</i></p>
+                </div>
+            </div>
+        </section>
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <h2 class="title decor-top">F.A.Q.</h2>
+                <h3 class="subtitle">Все, что вы хотите знать о проекте.</h3>
+                <div class="tabs">
+                    <ul class="tabs-navigation faq-tabs-navigation">
+                        <li><a href="#faq-1" class="active">Вопросы о SmartMMM</a></li>
+                        <li><a href="#faq-2">Алгоритм Смарт-контракта</a></li>
+                        <li><a href="#faq-3">Аудиты и обзоры</a></li>
+                    </ul>
+                    <div class="tabs-content faq-tabs-content">
+                        <div class="tab active" id="faq-1">
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <h3 class="faq-question">1.	Насколько это БЕЗОПАСНО?</h3>
+                                    <div class="faq-answer">
+                                        <p>Проект представляет из себя сложный, продуманный, полностью автономный алгоритм финансовой пирамиды, работающий на технологии смарт-контрактов в блокчейн Ethereum.</p>
+                                        <p>С момента запуска проекта влиять на его работу или изменить заложенные до старта условия технически невозможно!</p>
+                                        <p>Код контракта открыт для проверки и каждый может его изучить. Администрацией проекта заказан независимый аудит контракта, результаты которого будут доступны в ближайшее время.</p>
+                                        <p>Тем не менее нужно осознавать, что в любой финансовой пирамиде (даже самой честной), можно как заработать большие деньги, так и проиграть часть вложенного. РИСКУЙТЕ РАЗУМНО! НЕ ВКЛАДЫВАЙТЕ В ПРОЕКТ ПОСЛЕДНИЕ ИЛИ ЗАЕМНЫЕ СРЕДСТВА.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <h3 class="faq-question">2. Почему именно smartMMM.com?</h3>
+                                    <div class="faq-answer">
+                                        <p>Нами были проанализированы ВСЕ текущие, ранее действовавшие и анонсированные схожие проекты с их плюсами и уязвимостями. Воспользовавшись этой информацией, мы разработали уникальный алгоритм, с рядом исключительно полезных «фишек», которые позволят проекту работать бесконечно (!) долго. Наша финансовая модель гарантирует НЕВОЗМОЖНОСТЬ ОБРУШЕНИЯ ПИРАМИДЫ.</p>
+                                        <p>Алгоритм корректирует процент по вкладу от 1% до 2,5%, в зависимости от баланса контракта.</p>
+                                        <p>Только в нашем проекте не имеет значения время входа в проект, шансы заработать равны у всех. Проект smartMMM рассчитан на неограниченно долгий срок работы и НЕ МОЖЕТ БЫТЬ ОБРУШЕН и остановлен в результате снижения скорости притока новых вкладчиков.</p>
+                                        <p>Наша партнерская программа гарантирует хороший доход блогерам и вебмастерам. Все наши партнеры верифицируются, а значит новый вкладчик обязательно использует реферальную ссылку пригласившего его партнера, а не создаст свою.</p>
+                                        <p>НАШ смарт-контракт получил ПОЛНУЮ автоматизацию и прошел проверку на уязвимость.</p>
+                                     </div>
+                                 </div>
+                                 <div class="faq-item">
+                                     <h3 class="faq-question">3. Почему smartMMM не может обрушиться?</h3>
+                                     <div class="faq-answer">
+                                        <p>Весь функционал проекта прописан в смарт-контракте, никто и ничто не сможет этому помешать, так как с момента запуска алгоритм работает полностью автономно и не предусмотрена возможность влияния на его работу, что подтверждается независимым аудитом нашего смарт-контракта.</p>
+                                        <p>В классических честных пирамидах выплаты продолжаются, пока в фонде для выплат есть средства.</p>
+                                        <p>Но… Неизбежно наступает такой момент, когда количество ежедневных выплат начинает превышать сумму новых вкладов. В классической пирамиде это тупиковая ситуация, которая через несколько дней приводит к остановке проекта.</p>
+                                        <p>В нашем алгоритме предусмотрены автоматически регулируемая процентная ставка и функция «мягкий рестарт», благодаря которым банкротство и остановка пирамиды становятся невозможными.</p>
+                                        <p>Благодаря этим доработкам наш проект обречен на «вечную» жизнь, входить в него никогда не поздно, а полная потеря вклада исключается независимо от даты входа.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <h3 class="faq-question">4.	Что будет с проектом, если сайт перестанет работать?</h3>
+                                    <div class="faq-answer">
+                                        <p>Сайт несёт больше информационную функцию, если по какой-либо причине он перестанет работать, это никак не повлияет на ЕЖЕДНЕВНУЮ выплату процентов и приём вкладов.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <h3 class="faq-question">5.	Что будет с проектом, если его РАЗРАБОТЧИКИ пропадут?</h3>
+                                    <div class="faq-answer">
+                                        <p>Проект ИЗНАЧАЛЬНО полностью АВТОНОМНЫЙ и живет в сети. После старта разработчики могут заказывать рекламу и проводить рекламные акции для поддержания роста.</p>
+                                    </div>
+                                </div>
+                                    <div class="faq-item">
+                                    <h3 class="faq-question">6. Есть ли партнерская программа?</h3>
+                                    <div class="faq-answer">
+                                        <p>Есть, работает она следующим образом:</p>
+                                        <p>В момент осуществления вклада, реферал указывает в поле DATA адрес ЕТН кошелека реферера, и тогда реферер получает  5.0% от каждого такого вклада.</p>
+                                         <p>1% от вклада переводится рефереру 2-го уровня (рефереру реферера ).</p>
+                                        <p>Еще 2.0% в виде кэшбэка возвращается на счет вкладчика. Выплаты реферерам и кэшбэк вкладчику производятся в момент совершения платежа на адрес смарт-контракта.</p>
+                                        <p>Важная особенность!</p>
+                                        <p>Указывать в поле DATA можно только верифицированные кошельки партнеров. При указании не верифицированного кошелька партнерских начислений не происходит, при этом вклад засчитывается.</p>
+                                        <p>Проверить кошелек на верификацию можно запросом на сайте. Верифицируются партнеры двумя способами: по инициативе администрации, запросом к смарт-контракту с кошелька администратора, либо участником самостоятельно. </p>
+                                        <p>Для самостоятельной верификации кошелька участнику необходимо отправить на адрес смарт-контракта транзакцию с ТОЧНОЙ(!) суммой 0.0707 Eth. Данная сумма является платой за активацию партнерской ссылки. Участник активируется как партнер через 7 дней!</p>
+                                        <p>Данный механизм исключает использование собственных кошельков игнорируя кошельки реальных рефереров, что позволит блогерам и вебмастерам, продвигающим проект, зарабатывать в разы больше. Каждый новый вкладчик обязательно использует реф.ссылку того, кто его пригласил для получения 2% кэшбэка, т.к. «быстро» и бесплатно создать свою ссылку для получения еще 5% не получится.</p>
+                                     </div>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="tab" id="faq-2">
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <h3 class="faq-question">1.	Как устанавливается суточная доходность?</h3>
+                                    <div class="faq-answer">
+                                        <p>В алгоритме нашего смарт-контракта реализована очень важная особенность –  невозможность полного обрушения пирамиды. Давайте разберем подробно, как это работает.</p>
+                                        <h3>«Плавный старт»</h3>
+                                        <p>Один из уязвимых периодов любой пирамиды это ее старт. Рост должен быть плавным и нарастающим, поэтому процент по вкладам растет вместе  ростом популярности и узнаваемости проекта. SmartMMM стартует с процентной ставки в 1%. По мере увеличения баланса контракта максимальная процентная ставка по вкладам увеличивается:</p>
+                                        <p>
+                                            <ul>
+                                                <li>0 Eth - 25 Eth ставка 1,0%;</li>
+                                                <li>25 Eth - 250 Eth ставка 1,5%;</li>
+                                                <li>250 Eth - 2500 Eth ставка 2,0%;</li>
+                                                <li>2500 Eth и более ставка 2,5%.</li>
+                                            </ul>
+                                        </p>
+                                        <p>Процентная ставка рассчитывается именно на момент запроса выплаты, поэтому нет необходимости снимать проценты при низкой ставке, а можно подождать подходящий момент и запросить все накопления под 2,5%.</p>
+                                        <p>Для развития нашего проекта необходимо вовлечение в него все большего числа новых участников. Существенное значение для этого имеет реклама и время на распространение информации. Именно дополнительное время на информирование новых вкладчиков и дает нам период пониженных ставок.</p>
+                                        <p>Повторим, что процентная ставка определяется на момент запроса выплаты, и иногда хорошей стратегией будет подождать для запроса момента с более высокой ставкой.</p>
+                                        <p>При преодолении рубежа в 25000 Eth процетные ставки по вкладам и все остальные проценты распределения бюджена начинают медленно снижаться.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <h3 class="faq-question">2.	Почему установлено ограничение в 2.5%, а не  4%, 5% или 10% в сутки?</h3>
+                                    <div class="faq-answer">
+                                        <p>Всем нам кажется, что много и быстро это хорошо...</p>
+                                        <p>Разберемся, почему относительно небольшой процент выгоднее большого!? </p>
+                                        <p>Все дело в скорости распространения информации и скорости реакции потенциальных вкладчиков на новый, заинтересовавший их проект. При высоких процентах по вкладам просто недостаточно времени на информирование и преодоление инертности потенциальных вкладчиков. Чем ниже процент по вкладу, тем больше запас времени на информирование и вовлечение, а значит и больше вкладчиков и как следствие выше итоговый доход, даже при меньшей процентной ставке.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <h3 class="faq-question">3.	«Мягкий рестарт»</h3>
+                                    <div class="faq-answer">
+                                        <p>Создавая данный проект мы хорошо понимали, что даже используя плавающий процент и этим значительно продлив период стабильности пирамиды, неизбежно наступит момент, когда сумма ежедневных выплат превысит сумму ежедневных вкладов. При хорошей стратегии развития и удачном стечении обстоятельств этот момент может наступить и через несколько лет, но он обязательно наступит. Этот период становился началом конца всех подобных проектов.</p>
+                                        <p>В проекте SmartMMM алгоритмом смарт-контракта предусмотрен «мягкий рестарт»: при снижении баланса контракта ниже уровня в 30% от максимального, происходит коррекция расчетных вкладов участников. Суммы расчетных вкладов снижаются пропорционально времени участия в проекте, в большей степени урезая уже заработавшие кошельки, и не затрагивая(и даже увеличивая до 7%) кошельки новичков.</p>
+                                        <p>В результате «мягкого рестарта» вдвое снижается нагрузка на проект по выплатам, а следовательно, приток новых вкладов становится снова больше, чем выплаты, и рост возобновляется.</p>
+                                        <p>Как можно понять из данной логики теперь не важно первым ли Вы вошли в проект, или перед самым "рестартом".</p>
+                                        <p>Понижающий коэффициент для расчетных вкладов считается по формуле:</p>
+                                        <p>
+                                            k=1-D/Х+0,07,<br>
+                                            где Х - количество дней работы  проекта от старта или от прошлого рестарта<br>
+                                            D – количество дней работы вклада до момента рестарта
+                                       </p>
+                                       <p>Из формулы видим, что вклады, сделанные в первый день работы проекта, сократятся на 93%, а вклады, сделанные за 4-5 дней до рестарта, наоборот увеличатся на сумму до 7%. Вклады в промежуточные даты скорректируются пропорционально.</p>
+                                       <p>При таком алгоритме участникам узнавшем о проекте спустя месяцы после старта можно входить не опасаясь за скорого банкротства проекта. И даже становится выгодной стратегией входить в проект в момент предполагаемого «мягкого рестарта».</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <h3 class="faq-question">4. Плановые этапы развития проекта</h3>
+                                    <div class="faq-answer">
+                                        <p>Проект создан таким, чтобы работать неограниченно долгое время. Для этого предусмотрены описанные выше механизмы: плавающий процент, плавный старт, «мягкий рестарт».</p>
+                                        <p>Жизненный цикл проекта можно условно разбить на 3 этапа:</p>
+                                        <p>1. Стартовый период.</p>
+                                        <p>В это время процентная ставка по вкладам стартует от 1% и увеличивается по мере роста баланса контракта. При достижении баланса в 2500 ETH ставка по вкладам  вырастает до максимально возможной - 2,5% в сутки. Сделано это с целью предотвратить повышенный расход средств в период пока проект малоизвестен и потенциальные вкладчики только присматриваются. Также данный подход мотивирует участников держать вклады не снимая, помогая проекту быстрее достичь значительного рзмера баланса.</p>
+                                        <p>2. Активный рост и высокий процент.</p>
+                                        <p>В период когда баланс контракта более 2500 ETH и менее 25000 ETH ставка по вкладам остается максимальной, при этом сохраняются все заложенные на старте проценты выплат партнерам, создателям проекта и на рекламу.</p>
+                                        <p>3. Переход к долгосрочной стабильности.</p>
+                                        <p>Начиная с момента достижения 25000 ETH на балансе контракта, все заложенные процентные ставки распределения баланса начитают МЕДЛЕННО снижаться. Снижаться будут все расходы: процент суточной доходности, партнерские начисления, расходы на тех.поддержку и рекламу. На этом этапе в контракте запланировано постепенное снижение нагрузки на проект до минимума, обеспечив максимум надежности и стабильности для вкладчиков в долгосрочной перспективе.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab" id="faq-3">
+                            <div class="faq-list">
+                                <div class="faq-item">
+                                    <h3 class="faq-question">1.	Независимый аудит Смарт контракта. Что это и зачем?</h3>
+                                    <div class="faq-answer">
+                                        <p>Как вы уже знаете проект посторен на смарт контракте, а значит все, что может происходить с деньгами вкладчиков описано в алгоритме этого смарт контракта. Кроме описанных в контракте функций никто и ничего сделать не сможет.</p>
+                                        <p>Именно поэтому важно понимать, что именно предусмотрено алгоритмом смарт контракта, и не заложена ли в нем возможность вывода всех денег вкладчиков.</p>
+                                        <p>Далеко не каждый участник проекта разбирается в коде, поэтому независимый анализ и подробный разбор всего алгоритма контракта очень важен для повышения доверия к проекту.</p>
+                                        <p>Мы создали максимально честный алгоритм и предлагаем всем, кто разбирается в программировании и способен понять и объяснить алгоритм работы нашего контракта сделать соответствующее видео или статью. В качестве вознаграждения за работу мы опубликуем ссылку на ваш обзор или сайт, по которой пройдум многие из наших вкладчиков, возможно подпишутся на ваш канал, добавят лайков и просмотром. Также мы активируем ваш кошелек ETН как партнерский и вы заработаете на привлечении новых учасников в проект через свой обзор.</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <h3 class="faq-question">2. Аудиты </h3>
+                                    <div class="faq-answer">
+                                        <p>Вы можете сделать аудит первым и мы добавим его сюда.</p>
+                                        <p>....</p>
+
+                                     </div>
+                                 </div>
+                                 <div class="faq-item">
+                                     <h3 class="faq-question">3. Обзоры </h3>
+                                     <div class="faq-answer">
+                                        <p>Сделайте первым обзор на наш проект и он будет добавлен сюда.</p>
+                                        <p>....</p>
+                                    </div>
+                                </div>
+                                <div class="faq-item">
+                                    <h3 class="faq-question">4.	Видео инструкции</h3>
+                                    <div class="faq-answer">
+                                         <p>Создайте инструкцию для помощи новичкам и мы добавим ее сюда.</p>
+                                         <p>....</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                       </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+
+
+
+
+    </main>
+    <footer class="footer" id="contact">
+        <div class="container">
+            <h2 class="title">Остались вопросы?</h2>
+            <h3 class="subtitle white">Задайте их администраторам или участникам нашего сообщества</h3>
+            <div class="telegram-chats telegram-chats-footer">
+                <a href="http://t.me/smart_mmm">Ru</a>
+                <a href="http://t.me/smart_mmm">En</a>
+            </div>
+            <a href="http://smartMMM.com" class="logo footer-logo" title="SmartMMM">
+                <img src="{{ url_for('static', filename='img/logo-footer.svg') }}" alt="logo">
+                <div>Smart<span>MMM</span></div>
+            </a>
+            <div class="footer-information">
+                <h3 class="footer-attention">Внимание!</h3>
+                <p>Данный проект является финансовой пирамидой.<br> Здесь вы можете заработать большие деньги, но и потерять вложенные. Рискуйте разумно.</p>
+                <div class="copyright">Copyright © SmartMMM 2018. All rights reserved</div>
+            </div>
+        </div>
+    </footer>
+
+ <!--   <div class="fixed-promotion">
+        <h2>Акция</h2>
+        <div class="countdown"></div>
+        <div class="fixed-promotion-close"></div>   -->
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-migrate-3.0.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.classycountdown.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.knob.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.throttle.js') }}"></script>
+    <script src="{{ url_for ('static', filename='load-eth-history.json') }}"></script>
+    <script src="{{ url_for ('static', filename='load-investors-history.json') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

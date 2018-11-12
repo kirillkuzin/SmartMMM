@@ -1,0 +1,401 @@
+.distribution-section {
+    padding-top: 182px;
+    padding-bottom: 380px;
+    background: url('../img/bg-distribution.png') no-repeat center top / cover;
+    color: $color-text-white;
+
+    .title, .subtitle {
+        color: inherit;
+    }
+}
+
+.pyramid {
+    margin-top: 82px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.pyramid-image {
+    max-width: 515px;
+    margin: 0 auto;
+    position: relative;
+
+    img {
+        display: block;
+    }
+}
+
+.pyramid-description {
+    position: absolute;
+    z-index: 1;
+}
+
+.pyramid-text {
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.2;
+}
+
+.pyramid-percent {
+    font-weight: 600;
+    font-size: 2.6rem;
+}
+
+.pyramid-description-1 {
+    left: -127px;
+    top: 2px;
+
+    .pyramid-percent {
+        position: absolute;
+        left: 138px;
+        top: -11px;
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        width: 189px;
+        height: 27px;
+        background: url('../img/pyramid-decription-1.png') no-repeat;
+        position: absolute;
+        left: calc(100% + 25px);
+        top: 7px;
+    }
+}
+
+.pyramid-description-2 {
+    left: 558px;
+    top: 18px;
+
+    .pyramid-percent {
+        position: absolute;
+        left: -63px;
+        top: -2px;
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        width: 221px;
+        height: 41px;
+        background: url('../img/pyramid-decription-2.png') no-repeat;
+        position: absolute;
+        right: calc(100% + 73px);
+        top: 19px;
+    }
+}
+
+.pyramid-description-3 {
+    left: -127px;
+    top: 108px;
+
+    .pyramid-percent {
+        position: absolute;
+        left: 0;
+        top: -41px;
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        width: 310px;
+        height: 31px;
+        background: url('../img/pyramid-decription-3.png') no-repeat;
+        position: absolute;
+        left: 58px;
+        top: -23px;
+    }
+}
+
+.pyramid-description-4 {
+    left: -127px;
+    top: 252px;
+
+    .pyramid-percent {
+        position: absolute;
+        left: 0;
+        top: -41px;
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        width: 304px;
+        height: 30px;
+        background: url('../img/pyramid-decription-4.png') no-repeat;
+        position: absolute;
+        left: 77px;
+        top: -24px;
+    }
+}
+
+.pyramid-description-5 {
+    text-align: right;
+    left: -295px;
+    top: 140px;
+
+    .pyramid-percent {
+        color: $color-text-10;
+        position: absolute;
+        right: 0;
+        top: -41px;
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        width: 31px;
+        height: 145px;
+        background: url('../img/pyramid-decription-5.png') no-repeat;
+        position: absolute;
+        left: calc(100% + 17px);
+        top: -55px;
+    }
+}
+
+.pyramid-side-1 {
+    width: 40px;
+    height: 44px;
+    background: url('../img/pyramid-side-1.png') no-repeat;
+    position: absolute;
+    left: 218px;
+    top: 1px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.pyramid-side-2 {
+    width: 60px;
+    height: 45px;
+    background: url('../img/pyramid-side-2.png') no-repeat;
+    position: absolute;
+    left: 257px;
+    top: 43px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.pyramid-side-3 {
+    width: 77px;
+    height: 59px;
+    background: url('../img/pyramid-side-3.png') no-repeat;
+    position: absolute;
+    left: 182px;
+    top: 78px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.pyramid-side-4 {
+    width: 276px;
+    height: 352px;
+    background: url('../img/pyramid-side-4.png') no-repeat;
+    position: absolute;
+    left: -17px;
+    top: 108px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.pyramid-triangle-1 {
+    width: 146px;
+    height: 111px;
+    background: url('../img/distribution-triangle-1.png') no-repeat;
+    position: absolute;
+    right: 150px;
+    top: -110px;
+}
+
+.pyramid-triangle-2 {
+    width: 82px;
+    height: 89px;
+    background: url('../img/distribution-triangle-2.png') no-repeat;
+    position: absolute;
+    left: 100px;
+    top: -107px;
+}
+
+.pyramid-triangle-3 {
+    width: 146px;
+    height: 141px;
+    background: url('../img/distribution-triangle-3.png') no-repeat;
+    position: absolute;
+    right: -45px;
+    top: 55px;
+}
+
+.pyramid-triangle-4 {
+    width: 116px;
+    height: 121px;
+    background: url('../img/distribution-triangle-4.png') no-repeat;
+    position: absolute;
+    left: 22px;
+    top: 278px;
+}
+
+.pyramid-triangle-5 {
+    width: 129px;
+    height: 100px;
+    background: url('../img/distribution-triangle-5.png') no-repeat;
+    position: absolute;
+    left: 215px;
+    top: 365px;
+}
+
+.pyramid-triangle-6 {
+    width: 139px;
+    height: 138px;
+    background: url('../img/distribution-triangle-6.png') no-repeat;
+    position: absolute;
+    right: 225px;
+    top: 330px;
+}
+
+.pyramid-triangle-7 {
+    width: 115px;
+    height: 103px;
+    background: url('../img/distribution-triangle-7.png') no-repeat;
+    position: absolute;
+    right: 38px;
+    top: 345px;
+}
+
+.pyramid-triangle-8 {
+    width: 151px;
+    height: 157px;
+    background: url('../img/distribution-triangle-8.png') no-repeat;
+    position: absolute;
+    left: 58px;
+    top: 58px;
+}
+
+.distribution-text {
+    max-width: 900px;
+    line-height: 1.7;
+    text-align: center;
+    margin: 0 auto;
+
+    p {
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+@media (max-width: 1399px) {
+
+    .pyramid-triangle-3 {
+        right: 0;
+    }
+}
+
+@media (max-width: 1199px) {
+
+    .pyramid {
+        transform: scale(0.86);
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .distribution-section {
+        padding-top: 60px;
+        padding-bottom: 60px;
+        background-image: -webkit-linear-gradient( 0deg, rgb(11,153,215) 0%, rgb(55,72,158) 100%);
+    }
+
+    .pyramid {
+        margin-top: 0;
+        margin-bottom: 0;
+        transform: scale(0.64);
+    }
+
+    .pyramid-triangle {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .distribution-section {
+        padding: 50px 0;
+    }
+
+    .pyramid {
+        transform: none;
+    }
+
+    .pyramid-image {
+        max-width: 290px;
+        margin-bottom: 15px;
+    }
+
+    .pyramid-description {
+        display: flex;
+        
+        &::before {
+            display: none;
+        }
+    }
+
+    .pyramid-description-1 {
+        left: -5px;
+        top: -3px;
+
+        .pyramid-percent {
+            position: static;
+        }
+    }
+
+    .pyramid-description-2 {
+        left: 175px;
+
+        .pyramid-percent {
+            position: static;
+        }
+    }
+
+    .pyramid-description-3 {
+        left: -5px;
+        top: 40px;
+
+        .pyramid-percent {
+            position: static;
+        }
+    }
+
+    .pyramid-description-4 {
+        left: 175px;
+        top: 80px;
+
+        .pyramid-percent {
+            position: static;
+        }
+    }
+
+    .pyramid-description-5 {
+        text-align: left;
+        left: -5px;
+        top: 110px;
+
+        .pyramid-percent {
+            position: static;
+        }
+    }
+
+    .pyramid-text {
+        font-size: 1rem;
+    }
+
+    .pyramid-percent {
+        font-size: 1.4rem;
+        margin-right: 5px;
+    }
+
+    .pyramid-side  {
+        display: none;
+    }
+}

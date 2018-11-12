@@ -1,0 +1,3 @@
+INFURA_LINK = 'https://mainnet.infura.io/v3/581ac5ee379c41e88b28e2cafe87421b'
+CONTRACT_ADDRESS = '0xe58446caa7f3e10743fe28a91e9331a1c78f432e'
+VALUE_DECIMALS = 3
