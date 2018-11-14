@@ -1,2 +1,6 @@
 *.pyc
 *.zip
+
+.DS_Store
+
+settings_local.py

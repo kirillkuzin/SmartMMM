@@ -1,9 +1,11 @@
 from flask import Flask, request, render_template
 from settings import DOMAIN_NAME, DOMAIN_PORT
-from ethereum_core import Ethereum
+from ethereum_core import Ethereum, TxWorker, HistoryWorker
 
 application = Flask(__name__)
 ethereum = Ethereum()
+txWorker = TxWorker(ethereum)
+historyWorker = HistoryWorker(ethereum)
 
 @application.route('/')
 @application.route('/index')
@@ -28,12 +30,17 @@ def index():
         walletReferralsLevelOneCount = walletReferralsLevelOneCount,
         walletReferralsLevelTwoCount = walletReferralsLevelTwoCount,
         walletReferralPayments = walletReferralPayments,
-        walletPaymentsAmount = walletPaymentsAmount
+        walletPaymentsAmount = walletPaymentsAmount,
+        lastTxs = ethereum.loadTxs()
     )
 
 if __name__ == '__main__':
+    txWorker.setDaemon(True)
+    txWorker.start()
+    historyWorker.setDaemon(True)
+    historyWorker.start()
     application.run(
-        debug = True,
+        debug = False,
         host = DOMAIN_NAME,
         port = DOMAIN_PORT
     )

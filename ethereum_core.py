@@ -6,20 +6,22 @@ from settings import *
 
 class Ethereum:
     web3 = Web3(Web3.HTTPProvider(INFURA_LINK))
-    currencys = ['ether', 'wei', 'gwei']
 
     def __init__(self):
-        contractAddress = Web3.toChecksumAddress(CONTRACT_ADDRESS)
+        self.contractAddress = Web3.toChecksumAddress(CONTRACT_ADDRESS)
         with open('smartmmm.json', 'r') as abiDefinition:
             abiStorage = json.load(abiDefinition)
-        self.contract = self.web3.eth.contract(address = contractAddress, abi = abiStorage)
+        self.contract = self.web3.eth.contract(
+            address = self.contractAddress,
+            abi = abiStorage
+        )
 
     def getContractBalance(self):
         address = Web3.toChecksumAddress(CONTRACT_ADDRESS)
         balance = self.web3.eth.getBalance(address)
         balance = Web3.fromWei(balance, 'ether')
         balance = correctDecimals(balance)
-        return balance
+        return float(balance)
 
     def getContractUsdtBalance(self, ethBalance):
         ethPrice = getEtherPrice()
@@ -75,3 +77,108 @@ class Ethereum:
                 return 'Партнер'
             else:
                 return 'Не партнер'
+
+    def saveTxs(self, txs):
+        with open('txs.txt', 'w') as txsFile:
+            for tx in txs:
+                txsFile.write(tx['address'])
+                txsFile.write(' ')
+                txsFile.write(tx['value'])
+                txsFile.write('\n')
+
+    def loadTxs(self):
+        txs = []
+        try:
+            with open('txs.txt', 'r') as txsFile:
+                for line in txsFile:
+                    line = line.split('\n')
+                    line = line[0].split(' ')
+                    address = line[0]
+                    amount = line[1]
+                    txs.append({
+                        'address': address,
+                        'value': amount
+                    })
+        except:
+            pass
+        return txs
+
+import threading
+
+class TxWorker(threading.Thread):
+    def __init__(self, ethereum):
+        self.ethereum = ethereum
+        threading.Thread.__init__(self)
+
+    def run(self):
+        while True:
+            txs = self.ethereum.loadTxs()
+            try:
+                with open('block.txt', 'r') as blockFile:
+                    contractBlock = int(blockFile.read())
+            except:
+                contractBlock = CONTRACT_BLOCK
+            currentBlock = self.ethereum.web3.eth.getBlock('latest')['number']
+            # currentBlock = 4429576
+            with open('block.txt', 'w') as blockFile:
+                blockFile.write(str(currentBlock))
+            while currentBlock > contractBlock:
+                counter = 0
+                block = self.ethereum.web3.eth.getBlock(currentBlock)
+                transactions = block.transactions
+                for transaction in transactions:
+                    if counter < 10:
+                        transactionInfo = self.ethereum.web3.eth.getTransaction(transaction)
+                        transactionTo = transactionInfo['to']
+                        if transactionTo == self.ethereum.contractAddress:
+                            transactionValue = transactionInfo['value']
+                            tx = {
+                                'address': transactionTo,
+                                'value': str(Web3.fromWei(transactionValue, 'ether'))
+                            }
+                            try:
+                                txs[counter] = tx
+                            except:
+                                txs.append(tx)
+                            counter += 1
+                    else:
+                        break
+                currentBlock -= 1
+            self.ethereum.saveTxs(txs)
+
+import time
+
+class HistoryWorker(threading.Thread):
+    def __init__(self, ethereum):
+        self.ethereum = ethereum
+        threading.Thread.__init__(self)
+
+    def run(self):
+        while True:
+            timestamp = str(time.time()).split('.')[0]
+            self.updateHistoryFiles(timestamp)
+            time.sleep(HISTORY_WAITING_SECONDS)
+
+    def updateHistoryFiles(self, timestamp):
+        self.updateBalanceHistory(int(timestamp))
+        self.updateInvestorsHistory(int(timestamp))
+
+    def updateBalanceHistory(self, timestamp):
+        with open('static/load-eth-history.json', 'r') as balanceFile:
+            balanceHistory = balanceFile.read()
+        balanceHistory = json.loads(balanceHistory)
+        balance = self.ethereum.getContractBalance()
+        history = [timestamp, balance]
+        balanceHistory.append(history)
+        with open('static/load-eth-history.json', 'w') as balanceFile:
+            balanceFile.write(json.dumps(balanceHistory))
+
+    def updateInvestorsHistory(self, timestamp):
+        with open('static/load-investors-history.json', 'r') as invesotrsFile:
+            investorsHistory = invesotrsFile.read()
+        investorsHistory = json.loads(investorsHistory)
+        investors = self.ethereum.getContractInvestorsCount()
+        history = [timestamp, investors]
+        investorsHistory.append(history)
+        with open('static/load-investors-history.json', 'w') as invesotrsFile:
+            invesotrsFile.write(json.dumps(investorsHistory))

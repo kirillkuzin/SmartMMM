@@ -141,7 +141,7 @@
                     <ul class="tabs-navigation state-tabs-navigation">
                         <li><a href="#tab-1" class="active">Динамика развития (демо)</a></li>
                         <li><a href="#tab-2">Проверить кошелёк (демо)</a></li>
-                        <li><a href="#tab-3">Топ вкладчиков<br> и партнеров (демо)</a></li>
+                        <li><a href="#tab-3">Последние транзакции</a></li>
                     </ul>
                     <div class="tabs-content state-tabs-content">
                         <div class="tab active" id="tab-1">
@@ -154,9 +154,9 @@
                                 <div class="wallet">
                                    <div class="wallet-form">
                                         <h2>Введите номер кошелька для получения всей доступной информации</h2>
-                                        <form action='index'>
+                                        <form action='#tab-2'>
                                             <input type="text" placeholder="Адрес кошелька" name="wallet">
-                                            <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                                            <!-- <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div> -->
                                             <input type="submit" value="Отправить запрос">
                                         </form>
                                     </div>
@@ -194,11 +194,11 @@
                                                         <span class="value">{{walletReferrerStatus}}</span>
                                                     </li>
                                                     <li>
-                                                        <span class="name">Привлечено участников (1 уровень):</span>
+                                                        <span class="name">Рефералов 1 уровня:</span>
                                                         <span class="value">{{walletReferralsLevelOneCount}}</span>
                                                     </li>
                                                     <li>
-                                                        <span class="name">Привлечено участников (2 уровень):</span>
+                                                        <span class="name">Рефералов 2 уровня:</span>
                                                         <span class="value">{{walletReferralsLevelTwoCount}}</span>
                                                     </li>
                                                     <li>
@@ -241,71 +241,15 @@
                                             <tr>
                                                 <th width="25%"><div class="table-title">Номер кошелька</div></th>
                                                 <th width="25%"><div class="table-title">Сумма ETH</div></th>
-                                                <th width="25%"><div class="table-title">Привлёк участников</div></th>
-                                                <th width="25%"><div class="table-title">Привлёк участников<br> на сумму ETH</div></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x493c4afb73b4E68f7B2097Ad02c6aD7B2dDE4C712">0x493c4afb73b4E68f7B2097Ad02c6aD7B2dDE4C712</div></td>
-                                                <td>12.005</td>
-                                                <td>64</td>
-                                                <td>28.128</td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x493c4a064t8E68f7B2097Ad02c6aD7B2dDE4C712">0x493c4a064t8E68f7B2097Ad02c6aD7B2dDE4C712</div></td>
-                                                <td>11.800</td>
-                                                <td>56</td>
-                                                <td>26.082</td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x493c4afb3484E68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb3484E68f7B2097Ad02c6aD7B2dDE4C71</div></td>
-                                                <td>9.611</td>
-                                                <td>48</td>
-                                                <td>24.230</td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x493c4adf6874E68f7B2097Ad02c6aD7B2dDE4C71">0x493c4adf6874E68f7B2097Ad02c6aD7B2dDE4C71</div></td>
-                                                <td>8.455</td>
-                                                <td>36</td>
-                                                <td>21.014</td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
-                                                <td>7.030</td>
-                                                <td>24</td>
-                                                <td>18.645</td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
-                                                <td>6.900</td>
-                                                <td>16</td>
-                                                <td>17.955</td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
-                                                <td>5.864</td>
-                                                <td>12</td>
-                                                <td>13.706</td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
-                                                <td>5.864</td>
-                                                <td>11</td>
-                                                <td>13.706</td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71">0x493c4afb706wE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
-                                                <td>5.864</td>
-                                                <td>10</td>
-                                                <td>13.706</td>
-                                            </tr>
-                                            <tr>
-                                                <td><div class="wallet-number" title="0x311f71389e3DE68f7B2097Ad02c6aD7B2dDE4C71">0x311f71389e3DE68f7B2097Ad02c6aD7B2dDE4C71</div></td>
-                                                <td>5.864</td>
-                                                <td>9</td>
-                                                <td>13.706</td>
-                                            </tr>
+                                            {% for tx in lastTxs %}
+                                                <tr>
+                                                    <td>{{tx.address}}</td>
+                                                    <td>{{tx.value}}</td>
+                                                </tr>
+                                            {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
