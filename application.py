@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template
-from werkzeug.contrib.fixers import ProxyFix
 from settings import DOMAIN_NAME, DOMAIN_PORT
 from ethereum_core import Ethereum, TxWorker, HistoryWorker
 
@@ -35,7 +34,6 @@ def index():
         lastTxs = ethereum.loadTxs()
     )
 
-application.wsgi_app = ProxyFix(application.wsgi_app)
 if __name__ == '__main__':
     txWorker.setDaemon(True)
     txWorker.start()
