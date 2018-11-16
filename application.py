@@ -6,6 +6,10 @@ application = Flask(__name__)
 ethereum = Ethereum()
 txWorker = TxWorker(ethereum)
 historyWorker = HistoryWorker(ethereum)
+txWorker.setDaemon(True)
+txWorker.start()
+historyWorker.setDaemon(True)
+historyWorker.start()
 
 @application.route('/')
 @application.route('/index')
@@ -35,10 +39,6 @@ def index():
     )
 
 if __name__ == '__main__':
-    txWorker.setDaemon(True)
-    txWorker.start()
-    historyWorker.setDaemon(True)
-    historyWorker.start()
     application.run(
         debug = False,
         host = DOMAIN_NAME,

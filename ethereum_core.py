@@ -117,8 +117,8 @@ class TxWorker(threading.Thread):
                 with open('block.txt', 'r') as blockFile:
                     contractBlock = int(blockFile.read())
             except:
-                contractBlock = CONTRACT_BLOCK
-            currentBlock = self.ethereum.web3.eth.getBlock('latest')['number']
+                contractBlock = self.ethereum.web3.eth.getBlock('latest')['number'] - 1
+            currentBlock = contractBlock + 1
             # currentBlock = 4429576
             with open('block.txt', 'w') as blockFile:
                 blockFile.write(str(currentBlock))
