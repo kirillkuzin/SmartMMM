@@ -169,6 +169,7 @@ class TxWorker(threading.Thread):
             self.ethereum.saveTxs(txs)
 
 import time
+import datetime
 
 class HistoryWorker(threading.Thread):
     def __init__(self, ethereum):
@@ -178,6 +179,7 @@ class HistoryWorker(threading.Thread):
     def run(self):
         while True:
             timestamp = str(time.time()).split('.')[0]
+            timestamp = int(timestamp) * 1000
             self.updateHistoryFiles(timestamp)
             time.sleep(HISTORY_WAITING_SECONDS)
 
