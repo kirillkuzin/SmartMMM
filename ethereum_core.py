@@ -84,6 +84,8 @@ class Ethereum:
                 txsFile.write(tx['address'])
                 txsFile.write(' ')
                 txsFile.write(tx['value'])
+                txsFile.write(' ')
+                txsFile.write(tx['hash'])
                 txsFile.write('\n')
 
     def loadTxs(self):
@@ -95,9 +97,11 @@ class Ethereum:
                     line = line[0].split(' ')
                     address = line[0]
                     amount = line[1]
+                    hash = line[2]
                     txs.append({
                         'address': address,
-                        'value': amount
+                        'value': amount,
+                        'hash': hash
                     })
         except:
             pass
@@ -120,47 +124,47 @@ class TxWorker(threading.Thread):
             except:
                 contractBlock = CONTRACT_BLOCK
             currentBlock = self.ethereum.web3.eth.getBlock('latest')['number']
-            # currentBlock = 4429576
             with open('block.txt', 'w') as blockFile:
                 blockFile.write(str(currentBlock))
             while currentBlock > contractBlock:
                 block = self.ethereum.web3.eth.getBlock(currentBlock)
-                try:
-                    transactions = block.transactions
-                except:
-                    pass
-                else:
-                    for transaction in transactions:
-                        transactionInfo = self.ethereum.web3.eth.getTransaction(transaction)
-                        transactionTo = transactionInfo['to']
-                        if transactionTo == self.ethereum.contractAddress:
-                            transactionFrom = transactionInfo['from']
-                            transactionValue = transactionInfo['value']
-                            tx = {
-                                'address': transactionFrom,
-                                'value': str(Web3.fromWei(transactionValue, 'ether'))
-                            }
-                            print(tx)
-                            if txs.length < 3:
-                                txs.append(tx)
-                            else:
-                                txCached = None
-                                i = counter
-                                for i in range(10 - counter):
-                                    if i != 0:
-                                        nextTxCached = txs[i + 1]
-                                        txs[i + 1] = txCached
-                                        txCached = nextTxCached
-                                    else:
-                                        txCached = txs[i + 1]
-                                        txs[i + 1] = txs[i]
-                                txs[counter] = tx
-                                if counter == 9:
-                                    counter = 0
-                                else:
-                                    counter += 1
+                transactions = []
+                while transactions == []:
+                    try:
+                        block = self.ethereum.web3.eth.getBlock(currentBlock)
+                        transactions = block.transactions
+                    except:
+                        pass
+                for transaction in transactions:
+                    transactionInfo = self.ethereum.web3.eth.getTransaction(transaction)
+                    transactionTo = transactionInfo['to']
+                    if transactionTo == self.ethereum.contractAddress:
+                        transactionFrom = transactionInfo['from']
+                        transactionValue = transactionInfo['value']
+                        transactionHash = str(Web3.toHex(transactionInfo['hash']))
+                        tx = {
+                            'address': transactionFrom,
+                            'value': str(Web3.fromWei(transactionValue, 'ether')),
+                            'hash': transactionHash
+                        }
+                        if len(txs) < 10:
+                            txs.append(tx)
                         else:
-                            break
+                            txCached = None
+                            i = counter
+                            for i in range(len(txs) - counter - 1):
+                                if i != 0 and i + 1 <= len(txs) - 1:
+                                    nextTxCached = txs[i + 1]
+                                    txs[i + 1] = txCached
+                                    txCached = nextTxCached
+                                else:
+                                    txCached = txs[i + 1]
+                                    txs[i + 1] = txs[i]
+                            txs[counter] = tx
+                            if counter == 9:
+                                counter = 0
+                            else:
+                                counter += 1
                 currentBlock -= 1
             self.ethereum.saveTxs(txs)
 

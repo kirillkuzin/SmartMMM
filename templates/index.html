@@ -243,6 +243,7 @@
                                             <tr>
                                                 <th width="25%"><div class="table-title">Номер кошелька</div></th>
                                                 <th width="25%"><div class="table-title">Сумма ETH</div></th>
+                                                <th width="25%"><div class="table-title">Tx hash</div></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -250,6 +251,7 @@
                                                 <tr>
                                                     <td>{{tx.address}}</td>
                                                     <td>{{tx.value}}</td>
+                                                    <td>{{tx.hash}}</td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
