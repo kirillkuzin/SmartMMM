@@ -101,10 +101,7 @@
         <section class="state-section" id="state">
             <div class="container">
                 <h2 class="title decor-top">Текущее состояние фонда</h2>
-                <h3 class="subtitle">Действующая сейчас ставка по вкладам<br> 1,0 % в сутки</h3>
-                <h3 class="subtitle"><b>ПРЕДСТАРТ </b></h3>
-                <h3 class="subtitle"><b>Реальная статистика будет доступна после старта</b></h3>
-                 <h3 class="subtitle">На данный момент статистика контракта доступна на сайте Etherscan.io</h3>
+                <h3 class="subtitle">Действующая сейчас ставка по вкладам<br> {{contractPercent}} % в сутки</h3>
                 <div class="state-features">
                     <div class="state-feature">
                         <img src="{{ url_for('static', filename='img/state-feature-icon-1.svg') }}" alt="">
@@ -139,23 +136,43 @@
                 </div>
                 <div class="tabs state-tabs">
                     <ul class="tabs-navigation state-tabs-navigation">
-                        <li><a href="#tab-1" class="active">Динамика развития (демо)</a></li>
-                        <li><a href="#tab-2">Проверить кошелёк (демо)</a></li>
+                        {% if isWallet %}
+                        <li><a href="#tab-1">Динамика развития</a></li>
+                        {% else %}
+                        <li><a href="#tab-1" class="active">Динамика развития</a></li>
+                        {% endif %}
+                        {% if isWallet %}
+                        <li><a href="#tab-2" class="active">Проверить кошелёк</a></li>
+                        {% else %}
+                        <li><a href="#tab-2">Проверить кошелёк</a></li>
+                        {% endif %}
                         <li><a href="#tab-3">Последние транзакции</a></li>
                     </ul>
                     <div class="tabs-content state-tabs-content">
+                        {% if isWallet %}
+                        <div class="tab" id="tab-1">
+                        {% else %}
                         <div class="tab active" id="tab-1">
+                        {% endif %}
                             <div class="state-tabs-inner">
                                 <div class="state-graph" id="graph"></div>
                             </div>
                         </div>
+                        {% if isWallet %}
+                        <div class="tab active" id="tab-2">
+                        {% else %}
                         <div class="tab" id="tab-2">
+                        {% endif %}
                             <div class="state-tabs-inner wallet-inner">
                                 <div class="wallet">
                                    <div class="wallet-form">
-                                        <h2>Введите номер кошелька для получения всей доступной информации</h2>
-                                        <form action='#tab-2'>
-                                            <input type="text" placeholder="Адрес кошелька" name="wallet">
+                                        <h2>Введите номер кошелька для получения информации</h2>
+                                        <form action='index#tab-1'>
+                                            {% if isWallet %}
+                                                <input type="text" value="{{wallet}}" name="wallet">
+                                            {% else %}
+                                                <input type="text" placeholder="Адрес кошелька" name="wallet">
+                                            {% endif %}
                                             <!-- <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div> -->
                                             <input type="submit" value="Отправить запрос">
                                         </form>
@@ -165,7 +182,8 @@
                                         <h2>Информация по кошельку</h2>
                                         <div class="wallet-cards">
                                             <div class="wallet-card information">
-                                                <h3>Информация о владельце(демо)</h3>
+                                                <h3>Информация о владельце</h3>
+                                                <br>
                                                 <ul>
                                                     <li>
                                                         <span class="name">Всего вложено в проект:</span>
@@ -175,20 +193,13 @@
                                                         <span class="name">Расчетный вклад:</span>
                                                         <span class="value">{{walletDepositSum}} ETH</span>
                                                     </li>
-                                                    <!-- <li>
-                                                        <span class="name">Начислено процентов за вклад:</span>
-                                                        <span class="value">12.050 ETH</span>
-                                                    </li> -->
+
                                                 </ul>
-                                                <ul>
-                                                    <li>
-                                                        <span class="name">Кэшбэк за вклады по реф. ссылке:</span>
-                                                        <span class="value">{{walletCashback}} ETH</span>
-                                                    </li>
-                                                </ul>
+
                                             </div>
                                             <div class="wallet-card referral">
-                                                <h3>Реферальная программа(демо)</h3>
+                                                <h3>Реферальная программа</h3>
+                                                <br>
                                                 <ul>
                                                     <li>
                                                         <span class="name">Статус партнера:</span>
@@ -202,31 +213,30 @@
                                                         <span class="name">Рефералов 2 уровня:</span>
                                                         <span class="value">{{walletReferralsLevelTwoCount}}</span>
                                                     </li>
-                                                    <li>
-                                                        <span class="name">Партнёрские начисления:</span>
-                                                        <span class="value">{{walletReferralPayments}} ETH</span>
-                                                    </li>
+
                                                 </ul>
                                             </div>
                                             <div class="wallet-card income">
-                                                <h3>Информация о доходах(демо)</h3>
+                                                <h3>Информация о доходах</h3>
+                                                <br>
                                                 <ul>
-                                                    <!-- <li>
-                                                        <span class="name">Всего начислено  :</span>
-                                                        <span class="value">23.555 ЕТН</span>
-                                                    </li> -->
+
                                                     <li>
-                                                        <span class="name">Получено выплат:</span>
+                                                        <span class="name">Получено выплат %%:</span>
                                                         <span class="value">{{walletPaymentsAmount}} ETH</span>
                                                     </li>
-                                                    <!-- <li>
-                                                        <span class="name">Доступно для снятия:</span>
-                                                        <span class="value">1.023 ЕТН</span>
-                                                    </li> -->
-                                                    <!-- <li>
-                                                        <span class="name">Суточная доходность:</span>
-                                                        <span class="value">0.82 ETH</span>
-                                                    </li> -->
+                                                    <li>
+                                                        <span class="name">Кэшбэк за вклады по реф. ссылке:</span>
+                                                        <span class="value">{{walletCashback}} ETH</span>
+                                                    </li>
+                                                     <li>
+                                                        <span class="name">Партнёрские выплаты:</span>
+                                                        <span class="value">{{walletReferralPayments}} ETH</span>
+                                                    </li>
+                                                     <li>
+                                                        <span class="name">Всего выплачено:</span>
+                                                        <span class="value">{{walletAllPayments}} ETH</span>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -251,7 +261,7 @@
                                                 <tr>
                                                     <td>{{tx.address}}</td>
                                                     <td>{{tx.value}}</td>
-                                                    <td>{{tx.hash}}</td>
+                                                    <td><a href="https://etherscan.io/tx/{{tx.hash}}/" style="color:blue">{{tx.hash}}</a></td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
@@ -262,29 +272,33 @@
                     </div>
                 </div>
             </div>
-         </section> <!--
-        <section class="promotion-section" id="promotion">
+         </section>
+           <section class="promotion-section" id="promotion">
             <div class="container">
                 <div class="promotion">
                     <div class="promotion-information">
-                        <h2>Акция - ПРЕДСТАРТ</h2>
-                        <p>В период действия акции любой кошелёк eth считается верифицированным партнером. А значит при указании этого кошелька в поле DATA при преводе на него сразу придёт 4.0% от вклада.</p>
-                        <p>Ещё 2,0% от суммы перевода вернётся на кошелёк вкладчика.<br> Лучшее время действовать - СЕЙЧАС!</p>
+                        <h2>АКЦИЯ для БЛОГЕРОВ</h2>
+                        <p>В период действия акции мы сразу и без оплаты верифицируем партнерский кошелек любому блогеру опубликовавшему обзор проекта. Кроме этого мы заплатим партнерам еще 2.0% от вкладов более 1 ЕТН, помимо 5% стандарных выплат по партнерской программе. </p>
+
                     </div>
                     <div class="promotion-image">
-                        <img src="img/promotion-image.png" alt="">
+                        <img src="{{ url_for('static', filename='img/promotion-image.png') }}" alt="">
                     </div>
                     <div class="promotion-right">
-                        <h2>Только 24 часа</h2>
-                        <p>До конца акции осталось:</p>
-                        <div class="countdown"></div>
+                        <h2>Только 7 дней (до 23.11.18)</h2>
+
+                        <p>Если вы блогер и вам интересно предложение, обращайтесь в телеграм @smartmmm
+                        </p> <br>
+                         <p> Лучшее время действовать - СЕЙЧАС!</p>
+                     <!--  <p>До конца акции осталось:</p>
+                        <div class="countdown"></div>       -->
                     </div>
                 </div>
             </div>
-        </section>  -->
-        <section class="how-section" id="how">
+        </section>
+ <section class="how-section" id="how">
             <div class="container">
-                <h2 class="title decor-top">Как зарабатывать на SmartMMM?</h2>
+                 <h2 class="title decor-top">Как зарабатывать на SmartMMM?</h2>
                 <h3 class="subtitle">4 простых шага для получения дохода</h3>
                 <div class="tabs how-tabs">
                     <div class="tabs-navigation how-cards">
@@ -325,7 +339,7 @@
                             <div class="how-content">
                                 <ul>
                                     <li>
-                                        <p><strong>2.</strong> Отправить с ETH кошелька на адрес смарт-контракта <strong>0xE58446cAA7f3e10743fE28a91e9331a1C78F432E</strong><br> любую сумму от 0.01 ETH. Для оплаты транзакции на кошельке дополнительно должно быть мин. 0.002 ETH.<br> Рекомендуемый gas limits: 200000, актуальный gas price можно взять с <a href="http://ethgasstation.info" target="_blank">ethgasstation.info</a></p>
+                                        <p><strong>2.</strong> Отправить с ETH кошелька на адрес смарт-контракта <strong>0xE58446cAA7f3e10743fE28a91e9331a1C78F432E</strong><br> любую сумму от 0.01 ETH. Для оплаты транзакции на кошельке дополнительно должно быть мин. 0.002 ETH.<br> Рекомендуемый gas limits: 300000, актуальный gas price можно взять с <a href="http://ethgasstation.info" target="_blank">ethgasstation.info</a></p>
                                         <p class="gray">*Не допускается перечисления с бирж, только с вашего личного<br> ETH кошелька, от которого у Вас есть приватные ключи.</p>
                                     </li>
                                 </ul>
@@ -344,10 +358,10 @@
                             <div class="how-content">
                                 <ul>
                                     <li>
-                                        <p><strong>4.</strong> Начисление вашего процента происходит через 24 часа, с момента последнего вашего успешного<br> пополнения счета, либо успешного списания вами накопленного процента. Вы можете получить выплату в любое<br> время отправив 0 ETH на адрес смарт-контракта.</p>
+                                        <p><strong>4.</strong> Начисление вашего процента происходит ежеминутно. Вы можете получать выплаты за прошедший период вклада так часто, как вам захочется. В любое время отправьте 0 ETH на адрес смарт-контракта и получите проценты за прошедщий период. Ни одна минута инвестиций не будет потеряна!</p>
                                         <p>Рекомендуемый gas limits: 300000, актуальный gas price можно взять с <a href="http://ethgasstation.info" target="_blank">ethgasstation.info</a></p>
                                         <p>Проверить выплаты можно на сайте <a href="https://etherscan.io/address/0xe58446caa7f3e10743fe28a91e9331a1c78f432e" target="_blank">etherscan.io</a> во вкладке “Internal Txns” вашего кошелька.</p>
-                                        <p class="gray">Для реинвестирования Вам нужно сначала снять накопленный процент вклада<br> (отправив 0 ЕТН на адрес смарт-контракта), и только потом сделать реинвест.</p>
+                                        <p>Для реинвестирования Вам НЕ обязательно снимать накопленный процент вклада. Все накопленные до реинвеста проценты прибавятся к сумме реинвеста.</p>
                                     </li>
                                 </ul>
                             </div>

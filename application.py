@@ -15,32 +15,37 @@ historyWorker.start()
 @application.route('/index')
 def index():
     wallet = request.args.get('wallet')
-    if wallet is not None:
-        isWallet = True
-    else:
+    if wallet is None or wallet is ' ' or wallet is '':
         isWallet = False
+    else:
+        isWallet = True
     contractBalance = ethereum.getContractBalance()
     contractUsdtBalance = ethereum.getContractUsdtBalance(contractBalance)
+    contractPercent = ethereum.getContractPercent()
     walletInvestedAmount, walletDepositSum, walletCashback, walletReferralsLevelOneCount, walletReferralsLevelTwoCount, walletReferralPayments, walletPaymentsAmount = ethereum.getWalletDepositInfo(wallet)
+    walletAllPayments = float(walletCashback) + float(walletReferralPayments) + float(walletPaymentsAmount)
     walletReferrerStatus = ethereum.getReferrerStatus(wallet)
     return render_template(
         'index.html',
-        contractBalance = contractBalance,
-        contractUsdtBalance = contractUsdtBalance,
+        contractBalance = float(contractBalance),
+        contractUsdtBalance = float(contractUsdtBalance),
         contractDaysAfterStart = ethereum.getContractDaysAfterStart(),
-        contractInvestedAmount = ethereum.getContractInvestedAmount(),
-        contractPaymentsAmount = ethereum.getContractPaymentsAmount(),
+        contractInvestedAmount = float(ethereum.getContractInvestedAmount()),
+        contractPaymentsAmount = float(ethereum.getContractPaymentsAmount()),
         contractInvestorsCount = ethereum.getContractInvestorsCount(),
-        walletInvestedAmount = walletInvestedAmount,
-        walletDepositSum = walletDepositSum,
-        walletCashback = walletCashback,
+        contractPercent = float(contractPercent),
+        walletInvestedAmount = float(walletInvestedAmount),
+        walletDepositSum = float(walletDepositSum),
+        walletCashback = float(walletCashback),
         walletReferrerStatus = walletReferrerStatus,
         walletReferralsLevelOneCount = walletReferralsLevelOneCount,
         walletReferralsLevelTwoCount = walletReferralsLevelTwoCount,
-        walletReferralPayments = walletReferralPayments,
-        walletPaymentsAmount = walletPaymentsAmount,
+        walletReferralPayments = float(walletReferralPayments),
+        walletPaymentsAmount = float(walletPaymentsAmount),
+        walletAllPayments = walletAllPayments,
         lastTxs = ethereum.loadTxs(),
-        isWallet = isWallet
+        isWallet = isWallet,
+        wallet = wallet
     )
 
 if __name__ == '__main__':

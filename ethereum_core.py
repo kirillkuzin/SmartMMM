@@ -1,4 +1,5 @@
 import json
+import math
 import web3
 from web3 import Web3
 from utils import *
@@ -16,11 +17,12 @@ class Ethereum:
             abi = abiStorage
         )
 
-    def getContractBalance(self):
+    def getContractBalance(self, isWei=False):
         address = Web3.toChecksumAddress(CONTRACT_ADDRESS)
         balance = self.web3.eth.getBalance(address)
-        balance = Web3.fromWei(balance, 'ether')
-        balance = correctDecimals(balance)
+        if not isWei:
+            balance = Web3.fromWei(balance, 'ether')
+            balance = correctDecimals(balance)
         return float(balance)
 
     def getContractUsdtBalance(self, ethBalance):
@@ -47,6 +49,14 @@ class Ethereum:
     def getContractInvestorsCount(self):
         investorsCount = self.contract.call().investorsCount()
         return investorsCount
+
+    def getContractPercent(self):
+        balance = self.getContractBalance(True)
+        percent = self.contract.call().getPercentByBalance(int(balance))
+        percent /= 100000000000000
+        percent *= 1440
+        percent = round(percent)
+        return percent
 
     def getWalletDepositInfo(self, wallet):
         try:
@@ -128,43 +138,38 @@ class TxWorker(threading.Thread):
                 blockFile.write(str(currentBlock))
             while currentBlock > contractBlock:
                 block = self.ethereum.web3.eth.getBlock(currentBlock)
-                transactions = []
-                while transactions == []:
-                    try:
-                        block = self.ethereum.web3.eth.getBlock(currentBlock)
-                        transactions = block.transactions
-                    except:
-                        pass
-                for transaction in transactions:
-                    transactionInfo = self.ethereum.web3.eth.getTransaction(transaction)
-                    transactionTo = transactionInfo['to']
-                    if transactionTo == self.ethereum.contractAddress:
-                        transactionFrom = transactionInfo['from']
-                        transactionValue = transactionInfo['value']
-                        transactionHash = str(Web3.toHex(transactionInfo['hash']))
-                        tx = {
-                            'address': transactionFrom,
-                            'value': str(Web3.fromWei(transactionValue, 'ether')),
-                            'hash': transactionHash
-                        }
-                        if len(txs) < 10:
-                            txs.append(tx)
-                        else:
-                            txCached = None
-                            i = counter
-                            for i in range(len(txs) - counter - 1):
-                                if i != 0 and i + 1 <= len(txs) - 1:
-                                    nextTxCached = txs[i + 1]
-                                    txs[i + 1] = txCached
-                                    txCached = nextTxCached
-                                else:
-                                    txCached = txs[i + 1]
-                                    txs[i + 1] = txs[i]
-                            txs[counter] = tx
-                            if counter == 9:
-                                counter = 0
+                if block is not None:
+                    transactions = block.transactions
+                    for transaction in transactions:
+                        transactionInfo = self.ethereum.web3.eth.getTransaction(transaction)
+                        transactionTo = transactionInfo['to']
+                        if transactionTo == self.ethereum.contractAddress:
+                            transactionFrom = transactionInfo['from']
+                            transactionValue = transactionInfo['value']
+                            transactionHash = str(Web3.toHex(transactionInfo['hash']))
+                            tx = {
+                                'address': transactionFrom,
+                                'value': str(Web3.fromWei(transactionValue, 'ether')),
+                                'hash': transactionHash
+                            }
+                            if len(txs) < 20:
+                                txs.append(tx)
                             else:
-                                counter += 1
+                                txCached = None
+                                i = counter
+                                for i in range(len(txs) - counter - 1):
+                                    if i != 0 and i + 1 <= len(txs) - 1:
+                                        nextTxCached = txs[i + 1]
+                                        txs[i + 1] = txCached
+                                        txCached = nextTxCached
+                                    else:
+                                        txCached = txs[i + 1]
+                                        txs[i + 1] = txs[i]
+                                txs[counter] = tx
+                                if counter == 9:
+                                    counter = 0
+                                else:
+                                    counter += 1
                 currentBlock -= 1
             self.ethereum.saveTxs(txs)
 
