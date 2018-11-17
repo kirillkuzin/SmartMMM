@@ -15,6 +15,10 @@ historyWorker.start()
 @application.route('/index')
 def index():
     wallet = request.args.get('wallet')
+    if wallet is not None:
+        isWallet = True
+    else:
+        isWallet = False
     contractBalance = ethereum.getContractBalance()
     contractUsdtBalance = ethereum.getContractUsdtBalance(contractBalance)
     walletInvestedAmount, walletDepositSum, walletCashback, walletReferralsLevelOneCount, walletReferralsLevelTwoCount, walletReferralPayments, walletPaymentsAmount = ethereum.getWalletDepositInfo(wallet)
@@ -35,7 +39,8 @@ def index():
         walletReferralsLevelTwoCount = walletReferralsLevelTwoCount,
         walletReferralPayments = walletReferralPayments,
         walletPaymentsAmount = walletPaymentsAmount,
-        lastTxs = ethereum.loadTxs()
+        lastTxs = ethereum.loadTxs(),
+        isWallet = isWallet
     )
 
 if __name__ == '__main__':
