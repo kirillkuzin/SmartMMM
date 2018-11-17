@@ -138,11 +138,17 @@ class TxWorker(threading.Thread):
                 blockFile.write(str(currentBlock))
             while currentBlock > contractBlock:
                 block = self.ethereum.web3.eth.getBlock(currentBlock)
-                if block is not None:
+                try:
                     transactions = block.transactions
+                except:
+                    pass
+                else:
                     for transaction in transactions:
                         transactionInfo = self.ethereum.web3.eth.getTransaction(transaction)
-                        transactionTo = transactionInfo['to']
+                        try:
+                            transactionTo = transactionInfo['to']
+                        except:
+                            break
                         if transactionTo == self.ethereum.contractAddress:
                             transactionFrom = transactionInfo['from']
                             transactionValue = transactionInfo['value']
@@ -153,7 +159,7 @@ class TxWorker(threading.Thread):
                                 'hash': transactionHash
                             }
                             if len(txs) < 20:
-                                txs.append(tx)
+                                txs = [tx] + txs
                             else:
                                 txCached = None
                                 i = counter
