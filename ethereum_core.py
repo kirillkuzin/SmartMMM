@@ -1,12 +1,12 @@
 import json
 import math
 import web3
-from web3 import Web3
+from web3 import Web3, WebsocketProvider
 from utils import *
 from settings import *
 
 class Ethereum:
-    web3 = Web3(Web3.HTTPProvider(INFURA_LINK))
+    web3 = Web3(WebsocketProvider(INFURA_LINK))
 
     def __init__(self):
         self.contractAddress = Web3.toChecksumAddress(CONTRACT_ADDRESS)
@@ -52,7 +52,7 @@ class Ethereum:
 
     def getContractPercent(self):
         balance = self.getContractBalance(True)
-        percent = self.contract.call().getPercentByBalance(int(balance))
+        percent = self.contract.call().getPercents(int(balance))[0]
         percent /= 100000000000000
         percent *= 1440
         percent = round(percent)
@@ -88,6 +88,54 @@ class Ethereum:
             else:
                 return 'Не партнер'
 
+import threading
+import time
+
+class TxWorker(threading.Thread):
+    def __init__(self, ethereum):
+        self.ethereum = ethereum
+        threading.Thread.__init__(self)
+
+    def run(self):
+        previousBlock = 0
+        while True:
+            txs = self.loadTxs()
+            blockNumber = self.ethereum.web3.eth.getBlock('latest')['number']
+            if blockNumber != previousBlock:
+                event = self.ethereum.contract.events.Deposit.createFilter(fromBlock = blockNumber)
+                try:
+                    eventsInfo = event.get_all_entries()
+                except:
+                    pass
+                else:
+                    for eventInfo in eventsInfo:
+                        transactionHash = str(Web3.toHex(eventInfo['transactionHash']))
+                        writed = False
+                        for tx in txs:
+                            if transactionHash == tx['hash']:
+                                writed = True
+                        if not writed:
+                            tx = {
+                                'address': str(eventInfo['args']['from']),
+                                'value': str(Web3.fromWei(eventInfo['args']['value'], 'ether')),
+                                'hash': transactionHash
+                            }
+                            if len(txs) < 20:
+                                txs = [tx] + txs
+                            else:
+                                txCached = None
+                                for i in range(len(txs) - 1):
+                                    if i != 0 and i + 1 <= len(txs) - 1:
+                                        nextTxCached = txs[i + 1]
+                                        txs[i + 1] = txCached
+                                        txCached = nextTxCached
+                                    elif i == 0:
+                                        txCached = txs[i + 1]
+                                        txs[i + 1] = txs[i]
+                                txs[0] = tx
+                            self.saveTxs(txs)
+                    previousBlock = blockNumber
+
     def saveTxs(self, txs):
         with open('txs.txt', 'w') as txsFile:
             for tx in txs:
@@ -117,71 +165,6 @@ class Ethereum:
             pass
         return txs
 
-import threading
-
-class TxWorker(threading.Thread):
-    def __init__(self, ethereum):
-        self.ethereum = ethereum
-        threading.Thread.__init__(self)
-
-    def run(self):
-        while True:
-            txs = self.ethereum.loadTxs()
-            counter = 0
-            try:
-                with open('block.txt', 'r') as blockFile:
-                    contractBlock = int(blockFile.read())
-            except:
-                contractBlock = CONTRACT_BLOCK
-            currentBlock = self.ethereum.web3.eth.getBlock('latest')['number']
-            with open('block.txt', 'w') as blockFile:
-                blockFile.write(str(currentBlock))
-            while currentBlock > contractBlock:
-                block = self.ethereum.web3.eth.getBlock(currentBlock)
-                try:
-                    transactions = block.transactions
-                except:
-                    pass
-                else:
-                    for transaction in transactions:
-                        transactionInfo = self.ethereum.web3.eth.getTransaction(transaction)
-                        try:
-                            transactionTo = transactionInfo['to']
-                        except:
-                            break
-                        if transactionTo == self.ethereum.contractAddress:
-                            transactionFrom = transactionInfo['from']
-                            transactionValue = transactionInfo['value']
-                            transactionHash = str(Web3.toHex(transactionInfo['hash']))
-                            tx = {
-                                'address': transactionFrom,
-                                'value': str(Web3.fromWei(transactionValue, 'ether')),
-                                'hash': transactionHash
-                            }
-                            if len(txs) < 20:
-                                txs = [tx] + txs
-                            else:
-                                txCached = None
-                                i = counter
-                                for i in range(len(txs) - counter - 1):
-                                    if i != 0 and i + 1 <= len(txs) - 1:
-                                        nextTxCached = txs[i + 1]
-                                        txs[i + 1] = txCached
-                                        txCached = nextTxCached
-                                    else:
-                                        txCached = txs[i + 1]
-                                        txs[i + 1] = txs[i]
-                                txs[counter] = tx
-                                if counter == 9:
-                                    counter = 0
-                                else:
-                                    counter += 1
-                currentBlock -= 1
-            self.ethereum.saveTxs(txs)
-
-import time
-import datetime
-
 class HistoryWorker(threading.Thread):
     def __init__(self, ethereum):
         self.ethereum = ethereum
@@ -191,8 +174,12 @@ class HistoryWorker(threading.Thread):
         while True:
             timestamp = str(time.time()).split('.')[0]
             timestamp = int(timestamp) * 1000
-            self.updateHistoryFiles(timestamp)
-            time.sleep(HISTORY_WAITING_SECONDS)
+            try:
+                self.updateHistoryFiles(timestamp)
+            except:
+                pass
+            else:
+                time.sleep(HISTORY_WAITING_SECONDS)
 
     def updateHistoryFiles(self, timestamp):
         self.updateBalanceHistory(int(timestamp))

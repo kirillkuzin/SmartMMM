@@ -252,6 +252,7 @@
                                         <thead>
                                             <tr>
                                                 <th width="25%"><div class="table-title">Номер кошелька</div></th>
+                                                <th width="25%"></th>
                                                 <th width="25%"><div class="table-title">Сумма ETH</div></th>
                                                 <th width="25%"><div class="table-title">Tx hash</div></th>
                                             </tr>
@@ -260,6 +261,7 @@
                                             {% for tx in lastTxs %}
                                                 <tr>
                                                     <td>{{tx.address}}</td>
+                                                    <td></td>
                                                     <td>{{tx.value}}</td>
                                                     <td><a href="https://etherscan.io/tx/{{tx.hash}}/" style="color:blue">{{tx.hash}}</a></td>
                                                 </tr>

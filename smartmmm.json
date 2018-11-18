@@ -333,27 +333,12 @@
 				"type": "uint256"
 			}
 		],
-		"name": "getPercentByBalance",
+		"name": "getPercents",
 		"outputs": [
 			{
-				"name": "",
+				"name": "depositPercent",
 				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "balance",
-				"type": "uint256"
-			}
-		],
-		"name": "getReferrersPercentsByBalance",
-		"outputs": [
+			},
 			{
 				"name": "referrerLevelOnePercent",
 				"type": "uint256"
@@ -365,22 +350,7 @@
 			{
 				"name": "cashBackPercent",
 				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "balance",
-				"type": "uint256"
-			}
-		],
-		"name": "getSupportsPercentsByBalance",
-		"outputs": [
+			},
 			{
 				"name": "techSupportPercent",
 				"type": "uint256"

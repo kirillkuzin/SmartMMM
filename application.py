@@ -1,5 +1,4 @@
 from flask import Flask, request, render_template
-from settings import DOMAIN_NAME, DOMAIN_PORT
 from ethereum_core import Ethereum, TxWorker, HistoryWorker
 
 application = Flask(__name__)
@@ -43,14 +42,10 @@ def index():
         walletReferralPayments = float(walletReferralPayments),
         walletPaymentsAmount = float(walletPaymentsAmount),
         walletAllPayments = walletAllPayments,
-        lastTxs = ethereum.loadTxs(),
+        lastTxs = txWorker.loadTxs(),
         isWallet = isWallet,
         wallet = wallet
     )
 
 if __name__ == '__main__':
-    application.run(
-        debug = False,
-        host = DOMAIN_NAME,
-        port = DOMAIN_PORT
-    )
+    application.run()
