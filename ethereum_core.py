@@ -28,7 +28,7 @@ class Ethereum:
     def getContractUsdtBalance(self, ethBalance):
         ethPrice = getEtherPrice()
         usdtBalance = float(ethBalance) * float(ethPrice)
-        return usdtBalance
+        return correctDecimals(usdtBalance)
 
     def getContractDaysAfterStart(self):
         daysAfterStart = self.contract.call().getDaysAfterStart()
