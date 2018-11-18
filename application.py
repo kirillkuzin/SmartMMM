@@ -27,7 +27,7 @@ def index():
     return render_template(
         'index.html',
         contractBalance = float(contractBalance),
-        contractUsdtBalance = float(contractUsdtBalance),
+        contractUsdtBalance = contractUsdtBalance,
         contractDaysAfterStart = ethereum.getContractDaysAfterStart(),
         contractInvestedAmount = float(ethereum.getContractInvestedAmount()),
         contractPaymentsAmount = float(ethereum.getContractPaymentsAmount()),
