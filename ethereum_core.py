@@ -102,8 +102,8 @@ class TxWorker(threading.Thread):
             txs = self.loadTxs()
             blockNumber = self.ethereum.web3.eth.getBlock('latest')['number']
             if blockNumber != previousBlock:
-                event = self.ethereum.contract.events.Deposit.createFilter(fromBlock = blockNumber)
                 try:
+                    event = self.ethereum.contract.events.Deposit.createFilter(fromBlock = blockNumber)
                     eventsInfo = event.get_all_entries()
                 except:
                     pass
