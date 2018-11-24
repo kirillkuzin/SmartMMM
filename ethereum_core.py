@@ -105,8 +105,9 @@ class TxWorker(threading.Thread):
                 try:
                     event = self.ethereum.contract.events.Deposit.createFilter(fromBlock = blockNumber)
                     eventsInfo = event.get_all_entries()
-                except:
-                    pass
+                    print(eventsInfo)
+                except Exception as e:
+                    print(e)
                 else:
                     for eventInfo in eventsInfo:
                         transactionHash = str(Web3.toHex(eventInfo['transactionHash']))
