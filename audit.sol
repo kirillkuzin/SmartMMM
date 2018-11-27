@@ -218,7 +218,7 @@ contract SmartMMM is Ownable
         }
     }
 
-    function isNeedRestart(uint balance) public returns (bool)
+    function isNeedRestart(uint balance) private returns (bool)
     {
         if(balance < maxBalance / 100 * 30) {
             maxBalance = 0;
